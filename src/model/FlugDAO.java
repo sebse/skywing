@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public interface FlugDAO {
     public ArrayList<Flug> getFlugList();
-    public Flug getFlugbyId(int fld);
+    public Flug getFlugbyId(int flugId);
     
     public ArrayList<Flug> getFlugbyNummer(String nummer);
     public ArrayList<Flug> getFlugbyDatum(Date abflugsdatum);
