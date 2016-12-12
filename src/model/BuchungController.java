@@ -64,7 +64,8 @@ public class BuchungController
 	
 	public void delBuchung(UUID buchungid)
 	{
-		buchungDAO.getBuchungbyId(buchungid);
+		;
+		buchungDAO.loescheBuchung(buchungDAO.getBuchungbyId(buchungid));
 		
 	}
 
