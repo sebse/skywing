@@ -1,11 +1,15 @@
 package model;
+
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.UUID;
 
 public class Buchung implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private int buchungid;
+	private UUID buchungid = UUID.randomUUID();
     //public static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     private Date buchungsdatum;
@@ -16,10 +20,12 @@ public class Buchung implements Serializable {
     private Ticket ticket;
 
 
-    public Buchung(int buchungid, Date buchungsdatum, String Email, String telefonnummer, Flug flug, Passagier passagier,
+    public Buchung(String Email, String telefonnummer, Flug flug, Passagier passagier,
     		Ticket ticket) {
-    	this.setBuchungid(buchungid);
-    	this.setBuchungsdatum(buchungsdatum);
+    	
+    	Calendar cal = new GregorianCalendar();
+    	
+    	this.setBuchungsdatum(cal.getTime());
     	this.setEmail(Email);
     	this.setTelefonnummer(telefonnummer);
     	this.setFlug(flug);
@@ -27,14 +33,11 @@ public class Buchung implements Serializable {
     	this.setTicket(ticket);
     }
 
-    public int getBuchungid() {
+    public UUID getBuchungid() {
     	return buchungid;
     }
     
-    public void setBuchungid(int buchungid){
-    	if (buchungid!= (Integer) buchungid) throw new IllegalArgumentException("Die Buchungid muss Integer sein");
-    	else this.buchungid = buchungid;
-    }
+  
     
     public Date getBuchungsdatum() {
     	return buchungsdatum;
@@ -87,6 +90,12 @@ public class Buchung implements Serializable {
 
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
+	}
+	
+	public String toString()
+	{
+		return "BuchungID: " + buchungid ;
+				
 	}
 
     

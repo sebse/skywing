@@ -18,6 +18,8 @@ public class SerializedFlugDAO implements FlugDAO, Serializable{
 	private static final long serialVersionUID = 1L;
 	private String dataName; 
 
+	
+	
     public SerializedFlugDAO(String _dataName) {
         dataName = _dataName;
 
@@ -119,6 +121,8 @@ public class SerializedFlugDAO implements FlugDAO, Serializable{
 		}
 		return true;
     }
+    
+    
 
     
     

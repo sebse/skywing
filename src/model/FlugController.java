@@ -1,6 +1,7 @@
 package model;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class FlugController  {
@@ -53,12 +54,12 @@ public class FlugController  {
 	}
 
 	// flugSuche overloading: return ArrayList<flug> for searching via time and place
-	public ArrayList<flug> flugSuche(Flughafen abflugsort, Flughafen ankunftsort, Date abDatum) {
-		ArrayList<flug> suchlist = new ArrayList<>();
-		ArrayList<flug> flugList = flugDAO.getFlugbyDatum(abDatum);
+	public ArrayList<Flug> flugSuche(Flughafen abflugsort, Flughafen ankunftsort, Date abDatum) {
+		ArrayList<Flug> suchlist = new ArrayList<>();
+		ArrayList<Flug> flugList = flugDAO.getFlugbyDatum(abDatum);
 
 		for(Flug iter:flugList)
-			if(iter.getAbflugsort == abflugsort && iter.getAnkunftsort == ankunftsort)
+			if(iter.getAbflugsort() == abflugsort && iter.getAnkunftsort() == ankunftsort)
 				suchlist.add(iter);
 
 		return suchlist;

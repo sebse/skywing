@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class SerializedBuchungDAO implements BuchungDAO, Serializable{
 
@@ -51,7 +52,7 @@ public class SerializedBuchungDAO implements BuchungDAO, Serializable{
 	}
 
 	@Override
-	public Buchung getBuchungbyId(int buchingid) {
+	public Buchung getBuchungbyId(UUID buchingid) {
 		ArrayList <Buchung> suchlist= this.getBuchungList();
 		for(int i=0; i<suchlist.size(); i++) {
 			if (suchlist.get(i).getBuchungid()==buchingid) {
@@ -89,6 +90,42 @@ public class SerializedBuchungDAO implements BuchungDAO, Serializable{
 		return true;
 		
 	}
+	public boolean speichereBuchungModify(Buchung _buchung){
+    	ArrayList<Buchung> modifylist = this.getBuchungList();
+    	
+        for(int i = 0; i < modifylist.size(); ++i) {
+            if(modifylist.get(i)==_buchung)
+            {
+            	modifylist.get(i).setEmail(_buchung.getEmail());
+            	modifylist.get(i).setTelefonnummer(_buchung.getTelefonnummer());
+            	modifylist.get(i).getPassagier().setNachname(_buchung.getPassagier().getNachname());
+            	modifylist.get(i).getPassagier().setVorname(_buchung.getPassagier().getVorname());
+            	modifylist.get(i).getPassagier().setOrt(_buchung.getPassagier().getOrt());
+            	modifylist.get(i).getPassagier().setStrasse(_buchung.getPassagier().getStrasse());
+            	modifylist.get(i).getPassagier().setPostleitzahl(_buchung.getPassagier().getPostleitzahl());
+            	modifylist.get(i).getPassagier().setGeburtsdatum(_buchung.getPassagier().getGeburtsdatum());
+            	modifylist.get(i).getPassagier().setPassnummer(_buchung.getPassagier().getPassnummer());
+            	
+            }
+        }
+        
+    	
+    	try {
+			FileOutputStream fileos = new FileOutputStream(dataName);
+			ObjectOutputStream obos= new ObjectOutputStream(fileos);
+			if (obos!=null) {
+				obos.writeObject(modifylist);			
+				obos.close();
+				fileos.close();
+			}
+		}
+		catch(IOException e){
+			//System.out.println("Datei kann nicht erstellt werden! Problem mit Output!");
+			e.printStackTrace();
+			return false;
+		}
+    	return true;
+    }
 
 	@Override
 	public boolean loescheBuchung(Buchung buchung) {
@@ -126,5 +163,6 @@ public class SerializedBuchungDAO implements BuchungDAO, Serializable{
     	    
 		
 	}
+	
 
 }
