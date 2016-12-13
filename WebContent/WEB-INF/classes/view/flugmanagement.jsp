@@ -7,11 +7,14 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap-datetimepicker.min.css">
 		<link rel="stylesheet" type="text/css" href="vendor/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/fmanagement.css">
 		<script type="text/javascript" src="vendor/jquery/jquery.js"></script>
 		<script type="text/javascript" src="vendor/jquery/jquery.autocomplete.min.js"></script>
-		<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.js"></script>
+		<script type="text/javascript" src="vendor/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+		<script type="text/javascript" src="js/moment.js"></script>
 		<script type="text/javascript" src="js/flughafen-autocomplete.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -82,13 +85,50 @@
 						<ul class="nav">
 							<li class="input-list"><input type="text" name="flugnr" class="form-control" placeholder="Flugnummer z.B. SW123" required></li>
 							<li class="input-list"><input type="text" name="preis" class="form-control" placeholder="Preis (euro) z.B. 350.50" required></li>
-							<li class="input-list"><input type="text" name="ab_datum" class="form-control" placeholder="Abflugsdatum z.B. 2016-06-06 12:30" required></li>
-							<li class="input-list"><input type="text" name="an_datum" class="form-control" placeholder="Ankunftsdatum z.B. 2016-06-06 14:30" required></li>
+							<!--
+							<li class="input-list"><input type="text" name="ab_datum" class="form-control" data-format="dd/MM/yyyy hh:mm:ss" placeholder="Abflugsdatum z.B. 2016-06-06@12:30" required></li>
+							-->
+							<li class="input-list">
+								<div class="form-group" style="margin-bottom:10px">
+									<div class="input-group date form_datetime" data-date-format="yyyy-mm-dd@hh:ii" data-link-field="dtp_input1">
+										<input class="form-control" type="text" placeholder="Abflugssdatum" name="ab_datum" readonly required>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+									</div>
+									<input type="hidden" id="dtp_input1" value="" />
+								</div>
+         			</li>
+
+							<li class="input-list">
+								<div class="form-group" style="margin-bottom:10px">
+									<div class="input-group date form_datetime" data-date-format="yyyy-mm-dd@hh:ii" data-link-field="dtp_input1">
+										<input class="form-control" type="text" placeholder="Ankunftsdatum" name="an_datum" readonly required>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+									</div>
+									<input type="hidden" id="dtp_input1" value="" />
+								</div>
+         			</li>
+         			<!--
+							<li class="input-list"><input type="text" name="an_datum" class="form-control form_datetime" placeholder="Ankunftsdatum z.B. 2016-06-06@14:30" required></input></li>
+							-->
 							<li class="input-list"><input type="text" name="ab_ort" class="form-control" placeholder="Abflugsort z.B. VIE" id="ab_ort" required></li>
 							<li class="input-list"><input type="text" name="an_ort" class="form-control" placeholder="Ankunftsort z.B. HTR" id="an_ort" required></li>
 							<li style="margin-top:20px;"><button class="btn btn-lg btn-success btn-block" type="submit">Trägt ein</button></li>
 						</ul>
 					</form>
+					<script type="text/javascript">
+					$('.form_datetime').datetimepicker({
+							weekStart: 1,
+							todayBtn:  0,
+							autoclose: 1,
+							todayHighlight: 1,
+							startView: 2,
+							startDate: '+1d',
+							forceParse: 0,
+							showMeridian: 0
+						});
+					</script>
 
 					<hr>
 

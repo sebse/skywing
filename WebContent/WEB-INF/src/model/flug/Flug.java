@@ -76,6 +76,14 @@ public class Flug implements Serializable {
         return counter;
     }
 
+    public Sitzplatz nextFreiplatz() {
+    	for(Sitzplatz iter:sitzplatz)
+        	if(!iter.isReserviert())
+        		return iter;
+
+        return null;
+    }
+
     public String toString() {
         String rts = new String();
         rts += flugnr + " " +

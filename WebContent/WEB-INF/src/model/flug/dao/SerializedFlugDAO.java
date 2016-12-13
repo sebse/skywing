@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.IllegalFormatException;
+import java.text.SimpleDateFormat;
 
 import model.flug.Flug;
 import model.*;
@@ -59,10 +60,23 @@ public class SerializedFlugDAO implements FlugDAO {
 
     //public List<Flug> getFlugbyNummer(String nummer);
     //public List<Flug> getFlugbyDatum(Calendar abflugsdatum);
-    //public Flug getFlugbyNrandDatum(String nr, Calendar abflugsdatum);
+    public Flug getFlugbyNrandDatum(String nr, Date abflugsdatum){
+		ArrayList<Flug> flugList = this.getFlugList();
+        int pos = -1;
+
+        for(int i=0; i < flugList.size(); i++)
+            if(flugList.get(i).getFlugnr().equals(nr) && flugList.get(i).getAbflugsdatum().equals(abflugsdatum))
+                pos = i;
+
+        if(pos >= 0)
+            return flugList.get(pos);
+        else
+		  return null;
+    }
 
     public boolean speichereFlug(Flug _flug) {
         ArrayList<Flug> flugList = new ArrayList<>();
+        SimpleDateFormat df_notime = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             FileInputStream fis = new FileInputStream(dataName);
@@ -75,8 +89,14 @@ public class SerializedFlugDAO implements FlugDAO {
         }
         catch(IOException|ClassNotFoundException e) {
             e.printStackTrace();
-            return true;
+            return false;
         }
+
+        // flight with the same flight number cannot be available in the same day
+        for(Flug iter: flugList)
+            if(iter.getFlugnr().equals(_flug.getFlugnr()) && df_notime.format(iter.getAbflugsdatum()).equals(df_notime.format(_flug.getAbflugsdatum())))
+                return false;
+                //throw new IllegalFormatException("Die Fluege mit derselben Nummerm koennen nicht im selben Tag fliegen.");
 
         flugList.add(_flug);
 

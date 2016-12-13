@@ -18,6 +18,14 @@
     <servlet-name>FlugLoeschenServlet</servlet-name>
     <servlet-class>controller.FlugLoeschenServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>FlugZeigenServlet</servlet-name>
+    <servlet-class>controller.FlugZeigenServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>FlugBuchungServlet</servlet-name>
+    <servlet-class>controller.FlugBuchungServlet</servlet-class>
+  </servlet>
 
   <!-- Note: All <servlet> elements MUST be grouped together and
        placed IN FRONT of the <servlet-mapping> elements -->
@@ -33,6 +41,14 @@
   <servlet-mapping>
     <servlet-name>FlugLoeschenServlet</servlet-name>
     <url-pattern>/management/loeschen</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FlugZeigenServlet</servlet-name>
+    <url-pattern>/flugliste</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FlugBuchungServlet</servlet-name>
+    <url-pattern>/buchung</url-pattern>
   </servlet-mapping>
 
   <security-role>

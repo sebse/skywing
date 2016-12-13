@@ -2,54 +2,48 @@ package model;
 
 public class Ticket {
 	
-	private int ticketnummer;
-	
+	private String ticketnummer;
+	private String passnr;
+	private String flugcode;
+	private int[] sitzplatznr = new int[2]; //[0]-spalte, [1]-zeile
 
-	private Passagier passagier;
-	private Flug flug;
-	private Sitzplatz sitzplatz;
-	
-	public Ticket(int ticketnummer, Passagier passagier, Flug flug, Sitzplatz sitzplatz) {
-		super();
+	public Ticket(String ticketnummer, String passnr, String flugcode, int sitzplatz_spalte, int sitzplatz_zeile) {
 		this.ticketnummer = ticketnummer;
-		this.passagier = passagier;
-		this.flug = flug;
-		this.sitzplatz = sitzplatz;
+		this.passnr = passnr;
+		this.flugcode = flugcode;
+		this.sitzplatznr[0] = sitzplatz_spalte;
+		this.sitzplatznr[1] = sitzplatz_zeile;
 	}
 
-	public int getTicketnummer() {
+	public String getTicketnummer() {
 		return ticketnummer;
 	}
 
-	public void setTicketnummer(int ticketnummer) {
-		if (ticketnummer!= (Integer) ticketnummer) throw new IllegalArgumentException("Ticketnummer muss Integer sein");
-    	else
+	public void setTicketnummer(String ticketnummer) {
 		this.ticketnummer = ticketnummer;
 	}
 
-	public Passagier getPassagier() {
-		return passagier;
+	public String getPassnr() {
+		return passnr;
 	}
 
-	public void setPassagier(Passagier passagier) {
-		this.passagier = passagier;
+	public void setPassnr(String passnr) {
+		this.passnr = passnr;
 	}
 
-	public Flug getFlug() {
-		return flug;
+	public String getFlugcode() {
+		return flugcode;
 	}
 
-	public void setFlug(Flug flug) {
-		this.flug = flug;
+	public void setFlugcode(String flugcode) {
+		this.flugcode = flugcode;
 	}
 
-	public Sitzplatz getSitzplatz() {
-		return sitzplatz;
+	public int[] getSitzplatznr() {
+		return sitzplatznr;
 	}
 
-	public void setSitzplatz(Sitzplatz sitzplatz) {
-		this.sitzplatz = sitzplatz;
+	public void setSitzplatznr(int[] sitzplatznr) {
+		this.sitzplatznr = sitzplatznr;
 	}
-	
-	
 }

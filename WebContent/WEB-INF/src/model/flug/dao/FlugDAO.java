@@ -13,7 +13,7 @@ public interface FlugDAO {
     public ArrayList<Flug> getFlugList();
     //public ArrayList<Flug> getFlugbyNummer(String nummer);
     //public ArrayList<Flug> getFlugbyDatum(Date abflugsdatum);
-    //public Flug getFlugbyNrandDatum(String nr, Date abflugsdatum);
+    public Flug getFlugbyNrandDatum(String nr, Date abflugsdatum);
     public boolean speichereFlug(Flug _flug);
     public boolean loescheFlug(String flugnr, Date abflugsdatum);
     //public void modFlug(Flug _flug);

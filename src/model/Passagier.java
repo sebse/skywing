@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class Passagier {
 	
- private String vorname;
- private String nachname;
- private String strasse;
- private String ort;
- private String postleitzahl;
- private Date geburtsdatum;
- private String passnummer;
- private Date passAblaufsdatum;
- private String nationalitaet;
+private String vorname;
+private String nachname;
+private String strasse;
+private String ort;
+private String postleitzahl;
+private Date geburtsdatum;
+private String passnummer;
+private Date passAblaufsdatum;
+private String nationalitaet;
  
 public Passagier(String vorname, String nachname, String strasse, String ort, String postleitzahl, Date geburtsdatum,
 		String passnummer, Date passAblaufsdatum, String nationalitaet) {

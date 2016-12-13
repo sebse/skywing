@@ -36,8 +36,8 @@ public class FlugEintragenServlet extends HttpServlet {
         
         String abflugsort = request.getParameter("ab_ort");
         String ankunftsort = request.getParameter("an_ort");
-        Flughafen ab_flughafen = flughafenFromFile(baseFlughafenPath, abflugsort);//new Flughafen("N/A", abflugsort, "N/A", "N/A");//flughafenFromFile(baseFlughafenPath, abflugsort);
-		Flughafen an_flughafen = flughafenFromFile(baseFlughafenPath, ankunftsort);//new Flughafen("N/A", ankunftsort, "N/A", "N/A");//flughafenFromFile(baseFlughafenPath, ankunftsort);
+        Flughafen ab_flughafen = flughafenFromFile(baseFlughafenPath, abflugsort);
+		Flughafen an_flughafen = flughafenFromFile(baseFlughafenPath, ankunftsort);
 
 		Double preis = null;
         Date abflugsdatum = new Date();
@@ -60,7 +60,7 @@ public class FlugEintragenServlet extends HttpServlet {
 
     private Flughafen flughafenFromFile(String basepath, String fcode) {
 		try {
-			FileReader fr = new FileReader(basepath + fcode);
+			FileReader fr = new FileReader(basepath + fcode + ".txt");
 			BufferedReader br = new BufferedReader(fr);
 		
 			Flughafen neuFlughafen = new Flughafen();

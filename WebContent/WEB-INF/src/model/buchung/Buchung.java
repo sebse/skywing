@@ -1,59 +1,54 @@
 package model.buchung;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
+import model.*;
+
 public class Buchung implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-	private int buchungid;
-    //public static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	private String buchungid;
+	private Date buchungsdatum;
+	private String email;
+	private String telefonnummer;
+	private String flugcode;
+	private ArrayList<Passagier> passagier;
+	private ArrayList<Ticket> ticket;
 
-    private Date buchungsdatum;
-    private String Email;
-    private String telefonnummer;
-    private Flug flug;
-    private Passagier passagier;
-    private Ticket ticket;
+	public Buchung(String buchungid, Date buchungsdatum, String email, String telefonnummer,
+				   String flugcode, ArrayList<Passagier> passagier, ArrayList<Ticket> ticket) {
+		this.buchungid = buchungid;
+		this.buchungsdatum = buchungsdatum;
+		this.email = email;
+		this.telefonnummer = telefonnummer;
+		this.flugcode = flugcode;
+		this.passagier = passagier;
+		this.ticket = ticket;
+	}
 
+	public String getBuchungid() {
+		return buchungid;
+	}
 
-    public Buchung(int buchungid, Date buchungsdatum, String Email, String telefonnummer, Flug flug, Passagier passagier,
-    		Ticket ticket) {
-    	this.setBuchungid(buchungid);
-    	this.setBuchungsdatum(buchungsdatum);
-    	this.setEmail(Email);
-    	this.setTelefonnummer(telefonnummer);
-    	this.setFlug(flug);
-    	this.setPassagier(passagier);
-    	this.setTicket(ticket);
-    }
+	public void setBuchungid(String buchungid) {
+		this.buchungid = buchungid;
+	}
 
-    public int getBuchungid() {
-    	return buchungid;
-    }
-    
-    public void setBuchungid(int buchungid){
-    	if (buchungid!= (Integer) buchungid) throw new IllegalArgumentException("Die Buchungid muss Integer sein");
-    	else this.buchungid = buchungid;
-    }
-    
-    public Date getBuchungsdatum() {
-    	return buchungsdatum;
-    }
-    
-    public void setBuchungsdatum(Date buchungsdatum){
-    	if (buchungsdatum!= (Date) buchungsdatum) throw new IllegalArgumentException("Das Buchungsdatum muss Date sein");
-    	this.buchungsdatum = buchungsdatum;
-    }
-    
+	public Date getBuchungsdatum() {
+		return buchungsdatum;
+	}
+
+	public void setBuchungsdatum(Date buchungsdatum) {
+		this.buchungsdatum = buchungsdatum;
+	}
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-		if (email.isEmpty() ) throw new IllegalArgumentException("Email is empty!");
-		else this.Email = email;
+		this.email = email;
 	}
 
 	public String getTelefonnummer() {
@@ -61,34 +56,30 @@ public class Buchung implements Serializable {
 	}
 
 	public void setTelefonnummer(String telefonnummer) {
-		if (telefonnummer.isEmpty() ) throw new IllegalArgumentException("Telefonnummer is empty!");
-		else
 		this.telefonnummer = telefonnummer;
 	}
 
-	public Flug getFlug() {
-		return flug;
+	public String getFlugcode() {
+		return flugcode;
 	}
 
-	public void setFlug(Flug flug) {
-		this.flug = flug;
+	public void setFlugcode(String flugcode) {
+		this.flugcode = flugcode;
 	}
 
-	public Passagier getPassagier() {
+	public ArrayList<Passagier> getPassagier() {
 		return passagier;
 	}
 
-	public void setPassagier(Passagier passagier) {
+	public void setPassagier(ArrayList<Passagier> passagier) {
 		this.passagier = passagier;
 	}
 
-	public Ticket getTicket() {
+	public ArrayList<Ticket> getTicket() {
 		return ticket;
 	}
 
-	public void setTicket(Ticket ticket) {
+	public void setTicket(ArrayList<Ticket> ticket) {
 		this.ticket = ticket;
 	}
-
-    
 }
