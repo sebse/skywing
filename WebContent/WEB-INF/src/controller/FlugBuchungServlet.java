@@ -70,7 +70,6 @@ public class FlugBuchungServlet extends HttpServlet {
     	if (flug.anzahlFreiplatz() < n_passagier)
     		throw new IllegalArgumentException("Zu viele Passagieren fuer dieses Flug");
 
-    	PrintWriter out = response.getWriter();
 		for(int i=0; i < n_passagier; i++) {
 			String req_vorname = "vorname" + i;
 			String req_nachname = "nachname" + i;
@@ -102,33 +101,19 @@ public class FlugBuchungServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 
-			request.setAttribute("test", n_passagier);
-
 			passagier.add(new Passagier(vorname, nachname, strasse, ort, plz, g_datum, passnr, passAbDat, nation));
 			tickets.add(new Ticket(ticketnr, passnr, selFlug, flug.nextFreiplatz().getSpalte(), flug.nextFreiplatz().getZeile()));
-			flug.getSitzplatz().get(flug.getSitzplatzIndex(flug.nextFreiplatz())).setReserviert(true);
-
-			out.println(passagier.get(0).getVorname());
+			flugDAO.reserveFlug(flugnr, abflugsdatum, flug.getSitzplatzIndex(flug.nextFreiplatz()), true);
 		}
 
-		
-		out.println("<% int test = (int)request.getAttribute(\"test\");%>");
-		out.println("<input type=\"text\" value=<%= test %> id=\"test\">");
-		out.println("<script type=\"text/javascript\">");
-		
-		out.println("</script>");
+		request.setAttribute("buchungid", buchungid);
 
-		/*if(buchungDAO.speichereBuchung(new Buchung(buchungid, buchungsdatum, email, tel, selFlug, passagier, tickets))) {
-			request.getRequestDispatcher("index.html").include(request, response);
+		if(buchungDAO.speichereBuchung(new Buchung(buchungid, buchungsdatum, email, tel, selFlug, passagier, tickets))) {
+			request.getRequestDispatcher("/WEB-INF/classes/view/buchung-erfolg.jsp").include(request, response);
 			response.setContentType("text/html");
 		} else {
 			request.getRequestDispatcher("login-failed.html").include(request, response);
 			response.setContentType("text/html");
-		}*/
-
-		/*response.sendRedirect("/skywings/buchung");
-		response.setContentType("text/html");
-		request.getRequestDispatcher("/WEB-INF/classes/view/buchung-add-passagier.jsp").include(request, response);
-		response.setContentType("text/html");*/
+		}
     }
 }

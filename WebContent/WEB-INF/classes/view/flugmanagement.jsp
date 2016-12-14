@@ -42,6 +42,12 @@
 		ArrayList<String> anDatList = (ArrayList<String>)request.getAttribute("anDatList");
 		ArrayList<String> abOrtList = (ArrayList<String>)request.getAttribute("abOrtList");
 		ArrayList<String> anOrtList = (ArrayList<String>)request.getAttribute("anOrtList");
+
+		ArrayList<String> datList = (ArrayList<String>)request.getAttribute("datList");
+		ArrayList<String> emailList = (ArrayList<String>)request.getAttribute("emailList");
+		ArrayList<String> telList = (ArrayList<String>)request.getAttribute("teList");
+		ArrayList<String> flugcodeList = (ArrayList<String>)request.getAttribute("flugcodeList");
+		ArrayList<Integer> anzPassList = (ArrayList<Integer>)request.getAttribute("anzPassagierList");
 		%>
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container-fluid">
@@ -147,36 +153,104 @@
 
 				<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
 					<h1 class="page-header">Alle Flüge</h1>
-					<div class="col-sm-1 col-md-1">
-						
-					</div>
+					<div class="row">
+						<div class="col-sm-1 col-md-1">
+							
+						</div>
 
-					<div class="col-sm-10 col-md-10">
-						<form name="flugList-form">
-							<!--
-							<div class="list-group">
-								<a class="list-group-item radio"><label><input type="radio" name="radio1" value="test1">Flug 1 tyest test test test</label></a>
-							</div>
-							<div class="list-group">
-								<a class="list-group-item radio"><label><input type="radio" name="radio1" value="test1">Flug 1 tyest test test test</label></a>
-							</div>
-							<div class="list-group">
-								<a class="list-group-item radio"><label><input type="radio" name="radio1" value="test1">Flug 1 tyest test test test</label></a>
-							</div>
-							<div class="list-group">
-								<a class="list-group-item radio"><label><input type="radio" name="radio1" value="test1">Flug 1 tyest test test test</label></a>
-							</div>
-							-->
-							<%				
-								// check if it exists
-								if(flugnrList == null | freiplatzList == null | abDatList == null | anDatList == null) {
+						<div class="col-sm-10 col-md-10">
+							<form name="flugList-form">
+								<!--
+								<div class="list-group">
+									<a class="list-group-item radio"><label><input type="radio" name="radio1" value="test1">Flug 1 tyest test test test</label></a>
+								</div>
+								<div class="list-group">
+									<a class="list-group-item radio"><label><input type="radio" name="radio1" value="test1">Flug 1 tyest test test test</label></a>
+								</div>
+								<div class="list-group">
+									<a class="list-group-item radio"><label><input type="radio" name="radio1" value="test1">Flug 1 tyest test test test</label></a>
+								</div>
+								<div class="list-group">
+									<a class="list-group-item radio"><label><input type="radio" name="radio1" value="test1">Flug 1 tyest test test test</label></a>
+								</div>
+								-->
+								<%				
+									// check if it exists
+									if(flugnrList == null | freiplatzList == null | abDatList == null | anDatList == null) {
+								%>
+										<div class="alert alert-danger" role="alert">
+											<strong>Falscher Pfad!</strong>
+											Sie haben direkt an .jsp-Datei gerufen. Bitte laden Sie noch einmal <a href="/management">hier</a>!
+										</div>
+								<%
+									} else if(flugnrList.isEmpty() | freiplatzList.isEmpty() | abDatList.isEmpty() | anDatList.isEmpty()) {
+								%>
+										<div class="alert alert-warning" role="alert">
+											<strong>Keine Liste!</strong>
+											Es gibt im Moment kein Flug in der Liste.
+										</div>
+								<%
+									} else {
+								%>
+
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th></th>
+											<th>Flugnummer</th>
+											<th>Preis (euro)</th>
+											<th>Abflugsdatum</th>
+											<th>Ankunftsdatum</th>
+											<th>Abflugsort</th>
+											<th>Ankunftsort</th>
+											<th>Anzahl Freiplätze</th>
+										</tr>
+									</thead>
+									<tbody>
+								<%
+										for(int i=0; i<flugnrList.size(); i++) {
+											String new_id = new String();
+											new_id = "flug" + i;
+
+											String value = new String();
+											value += flugnrList.get(i) + "#" + abDatList.get(i);
+								%>
+											<tr>
+												<td><input id='<%= new_id %>' type="radio" name="flug" value=<%= value %> /></td>
+												<td><label for=<%= new_id %> style="font-weight: normal;"><%= flugnrList.get(i) %></label></td>
+												<td class="tcenter"><label for=<%= new_id %> style="font-weight: normal;"><%= preisList.get(i) %></label></td>
+												<td class="tcenter"><label for=<%= new_id %> style="font-weight: normal;"><%= abDatList.get(i) %></label></td>
+												<td class="tcenter"><label for=<%= new_id %> style="font-weight: normal;"><%= anDatList.get(i) %></label></td>
+												<td class="tcenter"><label for=<%= new_id %> style="font-weight: normal;"><%= abOrtList.get(i) %></label></td>
+												<td class="tcenter"><label for=<%= new_id %> style="font-weight: normal;"><%= anOrtList.get(i) %></label></td>
+												<td class="tcenter"><label for=<%= new_id %> style="font-weight: normal;"><%= freiplatzList.get(i) %></label></td>
+											</tr>
+								<%
+										}	
+									}
+								%>
+									</tbody>
+								</table>
+							</form>
+						</div>
+
+						<div class="col-sm-1 col-md-1">
+							
+						</div>
+					</div>
+					<h1 class="page-header">Alle Buchungen</h1>
+					<div class="row">
+						<div class="col-sm-1 col-md-1"></div>
+						<div class="col-sm-10 col-md-10">
+							<%
+							if(datList == null | emailList == null | telList == null | flugcodeList == null | anzPassList == null) {
 							%>
 									<div class="alert alert-danger" role="alert">
 										<strong>Falscher Pfad!</strong>
-										Sie haben direkt an .jsp-Datei gerufen. Bitte laden Sie noch einmal <a href="/addflug/add">hier</a>!
+										Sie haben direkt an .jsp-Datei gerufen. Bitte laden Sie noch einmal <a href="/management">hier</a>!
 									</div>
 							<%
-								} else if(flugnrList.isEmpty() | freiplatzList.isEmpty() | abDatList.isEmpty() | anDatList.isEmpty()) {
+								} else if(datList.isEmpty() | emailList.isEmpty() | telList.isEmpty() | flugcodeList.isEmpty() | anzPassList.isEmpty()) {
 							%>
 									<div class="alert alert-warning" role="alert">
 										<strong>Keine Liste!</strong>
@@ -185,50 +259,35 @@
 							<%
 								} else {
 							%>
-
-							<table class="table table-hover">
+							<table class="table">
 								<thead>
 									<tr>
-										<th></th>
-										<th>Flugnummer</th>
-										<th>Preis (euro)</th>
-										<th>Abflugsdatum</th>
-										<th>Ankunftsdatum</th>
-										<th>Abflugsort</th>
-										<th>Ankunftsort</th>
-										<th>Anzahl Freiplätze</th>
+										<th>Buchungsdatum</th>
+										<th>E-mail</th>
+										<th>Telefonnummer</th>
+										<th>Flugcode</th>
+										<th>Anzahl Passagieren</th>
 									</tr>
 								</thead>
 								<tbody>
-							<%
-									for(int i=0; i<flugnrList.size(); i++) {
-										String new_id = new String();
-										new_id = "flug" + i;
-
-										String value = new String();
-										value += flugnrList.get(i) + "#" + abDatList.get(i);
-							%>
-										<tr>
-											<td><input id='<%= new_id %>' type="radio" name="flug" value=<%= value %> /></td>
-											<td><label for=<%= new_id %> style="font-weight: normal;"><%= flugnrList.get(i) %></label></td>
-											<td class="tcenter"><label for=<%= new_id %> style="font-weight: normal;"><%= preisList.get(i) %></label></td>
-											<td class="tcenter"><label for=<%= new_id %> style="font-weight: normal;"><%= abDatList.get(i) %></label></td>
-											<td class="tcenter"><label for=<%= new_id %> style="font-weight: normal;"><%= anDatList.get(i) %></label></td>
-											<td class="tcenter"><label for=<%= new_id %> style="font-weight: normal;"><%= abOrtList.get(i) %></label></td>
-											<td class="tcenter"><label for=<%= new_id %> style="font-weight: normal;"><%= anOrtList.get(i) %></label></td>
-											<td class="tcenter"><label for=<%= new_id %> style="font-weight: normal;"><%= freiplatzList.get(i) %></label></td>
-										</tr>
-							<%
-									}	
-								}
-							%>
+									<%
+									for(int i=0; i < datList.size(); i++) {
+									%>
+									<tr>
+										<td><%= datList.get(i) %></td>
+										<td class="tcenter"><%= emailList.get(i) %></td>
+										<td class="tcenter"><%= telList.get(i) %></td>
+										<td class="tcenter"><%= flugcodeList.get(i) %></td>
+										<td class="tcenter"><%= anzPassList.get(i) %></td>
+									</tr>
+									<%
+										}
+									}
+									%>
 								</tbody>
 							</table>
-						</form>
-					</div>
-
-					<div class="col-sm-1 col-md-1">
-						
+						</div>
+						<div class="col-sm-1 col-md-1"></div>
 					</div>
 				</div>
 			</div>

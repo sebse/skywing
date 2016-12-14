@@ -144,5 +144,35 @@ public class SerializedFlugDAO implements FlugDAO {
             return false;
         }
     }
+
+    public boolean reserveFlug(String flugnr, Date abflugsdatum, int sitzplatzIdx, boolean val) {
+        ArrayList<Flug> flugList = this.getFlugList();
+        int pos = -1;
+
+        for(int i=0; i < flugList.size(); i++)
+            if(flugList.get(i).getFlugnr().equals(flugnr) && flugList.get(i).getAbflugsdatum().equals(abflugsdatum))
+                pos = i;
+
+        if(pos < 0)
+            return false;
+
+        flugList.get(pos).getSitzplatz().get(sitzplatzIdx).setReserviert(val);
+
+        try {
+            FileOutputStream fos = new FileOutputStream(dataName, false);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(flugList);
+
+            oos.close();
+            fos.close();
+
+            return true;
+        }
+        catch(IOException|IllegalFormatException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     //public void modFlug(Flug _flug);
 }

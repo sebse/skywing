@@ -1,8 +1,9 @@
 package model;
 
 import java.util.Date;
+import java.io.Serializable;
 
-public class Passagier {
+public class Passagier implements Serializable {
 	
  private String vorname;
  private String nachname;

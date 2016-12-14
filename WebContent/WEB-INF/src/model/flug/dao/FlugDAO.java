@@ -16,5 +16,6 @@ public interface FlugDAO {
     public Flug getFlugbyNrandDatum(String nr, Date abflugsdatum);
     public boolean speichereFlug(Flug _flug);
     public boolean loescheFlug(String flugnr, Date abflugsdatum);
+    public boolean reserveFlug(String flugnr, Date abflugsdatum, int sitzplatzIdx, boolean val);
     //public void modFlug(Flug _flug);
 }
